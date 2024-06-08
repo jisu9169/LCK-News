@@ -2,6 +2,7 @@ package com.sparta.lck_news.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.lck_news.dto.LoginRequestDto;
+import com.sparta.lck_news.dto.TokenDto;
 import com.sparta.lck_news.jwt.JwtUtil;
 import com.sparta.lck_news.security.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
@@ -45,10 +46,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
-//        UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
 
-        String token = jwtUtil.createToken(username);
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+        // JwtUtil의 generateToken 메서드를 호출하여 TokenDto를 생성
+        TokenDto tokenDto = jwtUtil.generateToken(authResult, username);
+        
+        String accessToken = tokenDto.getAccessToken();
+        String refreshToken = tokenDto.getRefreshToken();
+
+
+        //access, refresh 토큰 잘들어가나 확인용 (지우지말것)
+        log.info("엑세스토큰--" + accessToken);
+        log.info("리프레시토큰--" + refreshToken);
+        
+
+        // 응답 헤더에 AccessToken을 추가
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, JwtUtil.BEARER_PREFIX + tokenDto.getAccessToken());
     }
 
     @Override
@@ -56,5 +68,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("로그인 실패");
         response.setStatus(401);
     }
-
 }
