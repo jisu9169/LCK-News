@@ -1,13 +1,10 @@
-package com.sparta.lck_news.Controller;
+package com.sparta.lck_news.controller;
 
 import com.sparta.lck_news.dto.SignupRequestDto;
-import com.sparta.lck_news.security.UserDetailsImpl;
 import com.sparta.lck_news.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
