@@ -1,4 +1,4 @@
-package com.sparta.lck_news.controller;
+package com.sparta.lck_news.Controller;
 
 import com.sparta.lck_news.dto.SignupRequestDto;
 import com.sparta.lck_news.security.UserDetailsImpl;
@@ -53,15 +53,4 @@ public class UserController {
 
     }
 
-
-    // 회원 관련 정보 받기
-//    @GetMapping("/user-info")
-//    @ResponseBody
-//    public UserInfoDto getUserInfo(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        String username = userDetails.getUser().getUsername();
-//        UserRoleEnum role = userDetails.getUser().getRole();
-//        boolean isAdmin = (role == UserRoleEnum.ADMIN);
-//
-//        return new UserInfoDto(username, isAdmin);
-//    }
 }

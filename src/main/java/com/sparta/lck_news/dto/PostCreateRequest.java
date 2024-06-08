@@ -13,7 +13,6 @@ import lombok.ToString;
 public class PostCreateRequest {
     private String content;
 
-
     public Post toEntity() {
         return new Post(content);
     }

@@ -6,11 +6,13 @@ import com.sparta.lck_news.dto.PostResponse;
 import com.sparta.lck_news.entity.Post;
 import com.sparta.lck_news.service.PostService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/post")
 @RequiredArgsConstructor
@@ -27,6 +29,7 @@ public class PostController {
     public PostResponse getPostById(@PathVariable Long id) {
         return postService.getPostById(id);
     }
+
 
     @PostMapping
     public Post createPost(@RequestBody PostCreateRequest postCreateRequest) {
