@@ -1,24 +1,22 @@
-package com.sparta.lcknews.Controller;
+package com.sparta.lck_news.Controller;
 
 
-import com.sparta.lcknews.dto.PostCreateRequest;
-import com.sparta.lcknews.dto.PostResponse;
-import com.sparta.lcknews.model.Post;
-import com.sparta.lcknews.service.PostService;
+import com.sparta.lck_news.dto.PostCreateRequest;
+import com.sparta.lck_news.dto.PostResponse;
+import com.sparta.lck_news.entity.Post;
+import com.sparta.lck_news.service.PostService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/post")
+@RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
-
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
 
     @GetMapping
     public List<Post> getAllPost() {

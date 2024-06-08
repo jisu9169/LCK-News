@@ -1,4 +1,4 @@
-package com.sparta.lcknews.dto;
+package com.sparta.lck_news.dto;
 
 
 import lombok.AllArgsConstructor;

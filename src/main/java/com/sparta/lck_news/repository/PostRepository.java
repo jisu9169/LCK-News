@@ -1,8 +1,7 @@
-package com.sparta.lcknews.repository;
+package com.sparta.lck_news.repository;
 
-import com.sparta.lcknews.model.Post;
+import com.sparta.lck_news.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 
 
 public interface PostRepository extends JpaRepository<Post, Long> {
