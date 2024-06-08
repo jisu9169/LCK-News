@@ -7,6 +7,8 @@ import com.sparta.lck_news.jwt.JwtUtil;
 import com.sparta.lck_news.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +33,8 @@ public class UserService {
         if (checkUsername.isPresent()) {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
-
-
         // 사용자 등록
-        User user = new User(username, password);
+        User user = new User(requestDto, password);
         userRepository.save(user);
     }
 }

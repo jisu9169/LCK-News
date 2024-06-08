@@ -38,11 +38,11 @@ public class ProfileService {
 
   private void validatePassword(String requestPassword, String findUserPassword,
       String requestNewPassword, Boolean isPasswordChanged) {
-    if (!passwordEncoder.matches(findUserPassword, requestPassword)) {
+    if (!passwordEncoder.matches(requestPassword,findUserPassword)) {
       throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
     }
 
-    if (isPasswordChanged && passwordEncoder.matches(findUserPassword, requestNewPassword)) {
+    if (isPasswordChanged && passwordEncoder.matches(requestNewPassword, findUserPassword)) {
       throw new IllegalArgumentException("변경할 비밀번호가 현재 비밀번호와 같습니다.");
     }
   }

@@ -1,6 +1,7 @@
 package com.sparta.lck_news.entity;
 
 import com.sparta.lck_news.dto.ProfileRequestDto;
+import com.sparta.lck_news.dto.SignupRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,14 +35,14 @@ public class User extends Timestamped{
     @Column(name = "intro", length = 255)
     private String intro;
 
-    @Column(name = "status", nullable = false)
-    private String status;
+//    @Column(name = "status", nullable = false)
+//    private String status;
 
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    @Column(name = "status_change_time")
-    private LocalDateTime statusChangeTime;
+//    @Column(name = "status_change_time")
+//    private LocalDateTime statusChangeTime;
 
 
 
@@ -51,15 +52,12 @@ public class User extends Timestamped{
 //        updatedAt = LocalDateTime.now();
 //    }
 
-    public User(String username, String password) {
-        this.username = username;
+    public User(SignupRequestDto requestDto, String password) {
+        this.username = requestDto.getUsername();
         this.password = password;
-//        this.email = email;
-//        this.name = name;
-//        this.status = status;
-//        this.intro = intro;
-//        this.refreshToken = refreshToken;
-//        this.statusChangeTime = statusChangeTime;
+        this.name = requestDto.getName();
+        this.email = requestDto.getEmail();
+        this.intro = requestDto.getIntro();
     }
 
 
