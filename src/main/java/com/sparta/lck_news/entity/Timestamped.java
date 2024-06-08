@@ -1,6 +1,5 @@
 package com.sparta.lck_news.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,12 +11,15 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class Timestamped {
+public abstract class Timestamped {
 
     @CreatedDate
     @Column(updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updatedAt;
 }
