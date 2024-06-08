@@ -1,5 +1,6 @@
 package com.sparta.lck_news.entity;
 
+import com.sparta.lck_news.dto.ProfileRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,6 +63,16 @@ public class User extends Timestamped{
     }
 
 
+    public void update(ProfileRequestDto requestDto, String newPassword, Boolean changePassword ){
+        this.name = requestDto.getName();
+        this.email = requestDto.getEmail();
+        this.intro = requestDto.getIntroduction();
+
+        if(changePassword){
+            this.password = newPassword;
+        }
+
+    }
 }
 
 
