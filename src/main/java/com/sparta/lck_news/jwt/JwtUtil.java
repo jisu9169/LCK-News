@@ -45,7 +45,7 @@ public class JwtUtil {
 
     public static final String BEARER_PREFIX = "Bearer ";
 
-    public static final Long ACCESS_TOKEN_EXPIRATION = 10*1000L ;
+    public static final Long ACCESS_TOKEN_EXPIRATION = 24*60*60*1000L ;
 
     public static final Long REFRESH_TOKEN_EXPIRATION = 24*60*60*1000L ;
 
