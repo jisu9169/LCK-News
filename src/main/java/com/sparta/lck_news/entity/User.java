@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table(name = "users")
-public class User {
+public class User extends Timestamped{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,23 +24,23 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-//    @Column(name = "name", nullable = false)
-//    private String name;
-//
-////    @Column(name = "email", nullable = false, unique = true)
-////    private String email;
-//
-//    @Column(name = "intro", length = 255)
-//    private String intro;
-//
-//    @Column(name = "status", nullable = false)
-//    private String status;
-//
-//    @Column(name = "refresh_token")
-//    private String refreshToken;
-//
-//    @Column(name = "status_change_time")
-//    private LocalDateTime statusChangeTime;
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "intro", length = 255)
+    private String intro;
+
+    @Column(name = "status", nullable = false)
+    private String status;
+
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
+    @Column(name = "status_change_time")
+    private LocalDateTime statusChangeTime;
 
 
 
