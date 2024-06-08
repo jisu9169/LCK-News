@@ -33,6 +33,8 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
+        // 사용자에게 "ROLE_USER" 권한을 부여
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return authorities;
     }
 
