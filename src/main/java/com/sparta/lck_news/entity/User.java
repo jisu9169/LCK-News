@@ -41,16 +41,7 @@ public class User extends Timestamped{
     @Column(name = "refresh_token")
     private String refreshToken;
 
-//    @Column(name = "status_change_time")
-//    private LocalDateTime statusChangeTime;
 
-
-
-
-//    @PreUpdate
-//    protected void onUpdate() {
-//        updatedAt = LocalDateTime.now();
-//    }
 
     public User(SignupRequestDto requestDto, String password) {
         this.username = requestDto.getUsername();
