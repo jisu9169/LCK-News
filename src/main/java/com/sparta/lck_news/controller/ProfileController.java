@@ -1,5 +1,6 @@
 package com.sparta.lck_news.controller;
 
+import com.sparta.lck_news.dto.DeactivateRequestDto;
 import com.sparta.lck_news.dto.ProfileRequestDto;
 import com.sparta.lck_news.dto.ProfileResponseDto;
 import com.sparta.lck_news.security.UserDetailsImpl;
@@ -33,6 +34,10 @@ public class ProfileController {
     return ResponseEntity.ok(responseDto);
   }
 
-
+  @PatchMapping("/deactivate")
+  public ResponseEntity<Void> deactivateUser(@RequestBody DeactivateRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    profileService.deactivateUser(requestDto, userDetails.getUser());
+    return ResponseEntity.ok().build();
+  }
 
 }
