@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/user/profile")
 public class ProfileController {
-
   private final ProfileService profileService;
 
   @GetMapping
