@@ -36,9 +36,7 @@ public class ProfileService {
 
     validateUserStatus(findUser.getStatus());
 
-    userService.isValidUsername(requestDto.getName());
     userService.isValidPassword(requestDto.getPassword());
-
     validateCurrentPassword(requestDto.getPassword(), findUser.getPassword());
     if(requestDto.getChangeChecked()) {
       userService.isValidPassword(requestDto.getNewPassword());
