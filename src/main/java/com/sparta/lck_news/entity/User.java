@@ -30,7 +30,7 @@ public class User extends Timestamped{
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "intro", length = 255)
@@ -49,9 +49,8 @@ public class User extends Timestamped{
     public User(SignupRequestDto requestDto, String password) {
         this.username = requestDto.getUsername();
         this.password = password;
-        this.name = requestDto.getName();
-        this.email = requestDto.getEmail();
-        this.intro = requestDto.getIntro();
+        this.name = "not update profile";
+        this.intro = "not update profile";
         this.status = ACTIVE;
     }
 
