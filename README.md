@@ -1,3 +1,5 @@
+
+![image](https://github.com/hanraeul/LCK-News/assets/98158546/07265021-0b13-4f84-8f08-9ed620c1411e) 
 # LCK-News
 ## 목차
 
