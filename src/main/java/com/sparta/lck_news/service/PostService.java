@@ -4,8 +4,10 @@ package com.sparta.lck_news.service;
 import com.sparta.lck_news.dto.PostCreateRequest;
 import com.sparta.lck_news.dto.PostResponse;
 import com.sparta.lck_news.entity.Post;
+import com.sparta.lck_news.exception.CommonException;
+import com.sparta.lck_news.exception.ErrorStatus;
 import com.sparta.lck_news.repository.PostRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +15,8 @@ import java.util.List;
 
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PostService {
-
 
     private final PostRepository postRepository;
 
@@ -26,7 +27,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public PostResponse getPostById(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("잘못된 POST ID"));
+        Post post = findPostById(id);
         return new PostResponse(post);
     }
 
@@ -37,7 +38,7 @@ public class PostService {
 
     @Transactional
     public Post updatePost(Long id, PostCreateRequest updatedPost) {
-        Post post = postRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("잘못된 Post ID"));
+        Post post = findPostById(id);
         post.update(updatedPost.getContent());
 
         return postRepository.save(post);
@@ -46,6 +47,11 @@ public class PostService {
     @Transactional
     public void deletePost(Long id) {
         postRepository.deleteById(id);
+    }
+
+    public Post findPostById(Long id) {
+        return  postRepository.findById(id).orElseThrow(()-> new CommonException(
+            ErrorStatus.POST_ID_NOT_FOUND));
     }
 
 }
