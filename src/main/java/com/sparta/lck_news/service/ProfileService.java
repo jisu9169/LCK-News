@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ProfileService {
 
+  private final UserService userService;
+
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
 
@@ -31,9 +33,15 @@ public class ProfileService {
   @Transactional
   public ProfileResponseDto editProfile(ProfileRequestDto requestDto, User user) {
     User findUser = findUserByUsername(user.getUsername());
+
     validateUserStatus(findUser.getStatus());
+
+    userService.isValidUsername(requestDto.getName());
+    userService.isValidPassword(requestDto.getPassword());
+
     validateCurrentPassword(requestDto.getPassword(), findUser.getPassword());
     if(requestDto.getChangeChecked()) {
+      userService.isValidPassword(requestDto.getNewPassword());
       validateNewPassword(requestDto.getNewPassword(), findUser.getPassword());
     }
 

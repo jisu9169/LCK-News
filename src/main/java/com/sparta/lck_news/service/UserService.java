@@ -34,14 +34,9 @@ public class UserService {
         String password = requestDto.getPassword();
 
         // 아이디 형식 확인 (대소문자 포함 영문 + 숫자, 10자 이상 20자 이하)
-        if (!isValidUsername(username)) {
-            throw new IllegalArgumentException("아이디 형식이 올바르지 않습니다.");
-        }
-
+        isValidUsername(username);
         // 비밀번호 형식 확인 (대소문자 포함 영문 + 숫자 + 특수문자 최소 1글자씩 포함, 최소 10글자 이상)
-        if (!isValidPassword(password)) {
-            throw new IllegalArgumentException("비밀번호 형식이 올바르지 않습니다.");
-        }
+        isValidPassword(password);
 
         // 비밀번호 인코딩
         String encodedPassword = passwordEncoder.encode(password);
@@ -66,20 +61,24 @@ public class UserService {
         userRepository.save(user);
     }
 
-    private boolean isValidUsername(String username) {
+    public void isValidUsername(String username) {
         // 대소문자 포함 영문 + 숫자, 10자 이상 20자 이하
         String regex = "^[a-zA-Z0-9]{10,20}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(username);
-        return matcher.matches();
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("아이디 형식이 올바르지 않습니다.");
+        }
     }
 
-    private boolean isValidPassword(String password) {
+    public void isValidPassword(String password) {
         // 대소문자 포함 영문 + 숫자 + 특수문자 최소 1글자씩 포함, 최소 10글자 이상
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#\\$%\\^&\\*])[A-Za-z\\d!@#\\$%\\^&\\*]{10,}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
+        if(!matcher.matches()) {
+            throw new IllegalArgumentException("비밀번호 형식이 올바르지 않습니다.");
+        }
     }
 }
 
