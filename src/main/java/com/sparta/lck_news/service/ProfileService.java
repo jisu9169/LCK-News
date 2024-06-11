@@ -1,12 +1,14 @@
 package com.sparta.lck_news.service;
 
+import static com.sparta.lck_news.entity.UserStatus.DEACTIVATED;
+
 import com.sparta.lck_news.dto.DeactivateRequestDto;
 import com.sparta.lck_news.dto.ProfileRequestDto;
 import com.sparta.lck_news.dto.ProfileResponseDto;
 import com.sparta.lck_news.entity.User;
-import static com.sparta.lck_news.entity.UserStatus.*;
-
 import com.sparta.lck_news.entity.UserStatus;
+import com.sparta.lck_news.exception.CommonException;
+import com.sparta.lck_news.exception.ErrorStatus;
 import com.sparta.lck_news.repository.UserRepository;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
+
+  private final UserService userService;
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
@@ -31,9 +35,13 @@ public class ProfileService {
   @Transactional
   public ProfileResponseDto editProfile(ProfileRequestDto requestDto, User user) {
     User findUser = findUserByUsername(user.getUsername());
+
     validateUserStatus(findUser.getStatus());
+
+    userService.isValidPassword(requestDto.getPassword());
     validateCurrentPassword(requestDto.getPassword(), findUser.getPassword());
     if(requestDto.getChangeChecked()) {
+      userService.isValidPassword(requestDto.getNewPassword());
       validateNewPassword(requestDto.getNewPassword(), findUser.getPassword());
     }
 
@@ -52,24 +60,24 @@ public class ProfileService {
 
   private User findUserByUsername(String username) {
     return userRepository.findByUsername(username)
-        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        .orElseThrow(() ->  new CommonException(ErrorStatus.ID_NOT_FOUND));
   }
 
   private void validateUserStatus(UserStatus userStatus) {
     if(Objects.equals(DEACTIVATED, userStatus)) {
-      throw new IllegalArgumentException("계정이 비활성 상태 입니다.");
+      throw new CommonException(ErrorStatus.ACCOUNT_DISABLED);
     }
   }
 
   private void validateCurrentPassword(String requestPassword, String findUserPassword ) {
     if (!passwordEncoder.matches(requestPassword, findUserPassword)) {
-      throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+      throw new CommonException(ErrorStatus.PASSWORD_MISMATCH);
     }
   }
 
   private void validateNewPassword(String requestNewPassword, String findUserPassword) {
     if (passwordEncoder.matches(requestNewPassword, findUserPassword)) {
-      throw new IllegalArgumentException("변경할 비밀번호가 현재 비밀번호와 같습니다.");
+      throw new CommonException(ErrorStatus.PASSWORD_SAME_AS_CURRENT);
     }
   }
 }

@@ -172,13 +172,17 @@
 ## 2. 와이어 프레임
 
 ---
-![img.png](img.png)
+![LCK NEWS](https://github.com/hanraeul/LCK-News/assets/112698340/6ed3b83e-35e2-4b74-986f-e5cabeda8ef4)
+
+
 
 ## 3. API 명세서
 
 ---
-![img_2.png](img_2.png)
+![LCK API명세서](https://github.com/hanraeul/LCK-News/assets/112698340/e1b83dc6-2870-4f49-a4d5-a720736da411)
+
 ## 4. ERD
 
 ---
-![img_1.png](img_1.png)
+
+![LCK ERD](https://github.com/hanraeul/LCK-News/assets/112698340/50785199-1128-471a-b25e-4ea2294b954d)

@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user/profile")
+@RequestMapping("/api/user/profiles")
 public class ProfileController {
+
   private final ProfileService profileService;
 
   @GetMapping
@@ -28,13 +29,15 @@ public class ProfileController {
   }
 
   @PatchMapping("/edit")
-  public ResponseEntity<ProfileResponseDto> editProfile(@RequestBody ProfileRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+  public ResponseEntity<ProfileResponseDto> editProfile(@RequestBody ProfileRequestDto requestDto,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
     ProfileResponseDto responseDto = profileService.editProfile(requestDto, userDetails.getUser());
     return ResponseEntity.ok(responseDto);
   }
 
   @PatchMapping("/deactivate")
-  public ResponseEntity<Void> deactivateUser(@RequestBody DeactivateRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+  public ResponseEntity<Void> deactivateUser(@RequestBody DeactivateRequestDto requestDto,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
     profileService.deactivateUser(requestDto, userDetails.getUser());
     return ResponseEntity.ok().build();
   }
