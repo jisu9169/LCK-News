@@ -60,7 +60,8 @@ public class UserService {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(username);
         if (!matcher.matches()) {
-            throw new CommonException(ErrorStatus.INVALID_USERNAME_FORMAT);
+            throw new IllegalArgumentException("대소문자 포함 영문 + 숫자, 10자 이상 20자 이하로 다시 입력해주세요");
+
         }
     }
 
@@ -70,7 +71,8 @@ public class UserService {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         if(!matcher.matches()) {
-            throw new CommonException(ErrorStatus.INVALID_PASSWORD_FORMAT);
+            throw new IllegalArgumentException("대소문자 포함 영문 + 숫자 + 특수문자 최소 1글자씩 포함, 최소 10글자 이상으로 다시 입력해주세요");
+
         }
     }
 }
