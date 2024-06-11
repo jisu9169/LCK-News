@@ -1,6 +1,5 @@
 package com.sparta.lck_news.service;
 
-import com.sparta.lck_news.dto.LoginRequestDto;
 import com.sparta.lck_news.dto.SignupRequestDto;
 import com.sparta.lck_news.entity.User;
 import com.sparta.lck_news.jwt.JwtUtil;
@@ -67,7 +66,7 @@ public class UserService {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(username);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("아이디 형식이 올바르지 않습니다.");
+            throw new IllegalArgumentException("대소문자 포함 영문 + 숫자, 10자 이상 20자 이하로 다시 입력해주세요");
         }
     }
 
@@ -77,7 +76,7 @@ public class UserService {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         if(!matcher.matches()) {
-            throw new IllegalArgumentException("비밀번호 형식이 올바르지 않습니다.");
+            throw new IllegalArgumentException("대소문자 포함 영문 + 숫자 + 특수문자 최소 1글자씩 포함, 최소 10글자 이상으로 다시 입력해주세요");
         }
     }
 }
