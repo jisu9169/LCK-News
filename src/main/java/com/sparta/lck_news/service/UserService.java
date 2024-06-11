@@ -2,31 +2,25 @@ package com.sparta.lck_news.service;
 
 import com.sparta.lck_news.dto.SignupRequestDto;
 import com.sparta.lck_news.entity.User;
+import com.sparta.lck_news.exception.CommonException;
+import com.sparta.lck_news.exception.ErrorStatus;
 import com.sparta.lck_news.jwt.JwtUtil;
 import com.sparta.lck_news.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
-
-    @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
-        this.userRepository = userRepository;
-        this.jwtUtil = jwtUtil;
-        this.passwordEncoder = passwordEncoder;
-    }
-
 
     public void signup(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
@@ -43,7 +37,7 @@ public class UserService {
         // 회원 중복 확인
         Optional<User> checkUsername = userRepository.findByUsername(username);
         if (checkUsername.isPresent()) {
-            throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
+            throw new CommonException(ErrorStatus.DUPLICATE_USER);
         }
         // 사용자 등록
         User user = new User(requestDto, encodedPassword);
@@ -55,7 +49,7 @@ public class UserService {
     public void logout(String username) {
         System.out.println(username);
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new IllegalArgumentException("유효하지 않은 사용자 정보입니다.")
+                () -> new CommonException(ErrorStatus.ID_NOT_FOUND)
         );
         userRepository.save(user);
     }
@@ -67,6 +61,7 @@ public class UserService {
         Matcher matcher = pattern.matcher(username);
         if (!matcher.matches()) {
             throw new IllegalArgumentException("대소문자 포함 영문 + 숫자, 10자 이상 20자 이하로 다시 입력해주세요");
+
         }
     }
 
@@ -77,6 +72,7 @@ public class UserService {
         Matcher matcher = pattern.matcher(password);
         if(!matcher.matches()) {
             throw new IllegalArgumentException("대소문자 포함 영문 + 숫자 + 특수문자 최소 1글자씩 포함, 최소 10글자 이상으로 다시 입력해주세요");
+
         }
     }
 }
