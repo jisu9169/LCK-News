@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
 
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<ErrorResponse> scheduleExceptionHandler(CommonException e) {
+  @ExceptionHandler(CommonException.class)
+  public ResponseEntity<ErrorResponse> ExceptionHandler(CommonException e) {
     log.error(e.getMessage());
     return ResponseEntity.status(e.getStatus()).body(new ErrorResponse(e.getMessage()));
   }
