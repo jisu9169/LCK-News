@@ -1,11 +1,13 @@
 package com.sparta.lck_news.dto;
 
 import com.sparta.lck_news.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ProfileResponseDto {
 
   private String username;
