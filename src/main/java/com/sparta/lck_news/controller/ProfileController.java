@@ -41,5 +41,4 @@ public class ProfileController {
     profileService.deactivateUser(requestDto, userDetails.getUser());
     return ResponseEntity.ok().build();
   }
-
 }
